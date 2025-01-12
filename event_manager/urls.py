@@ -18,6 +18,8 @@ from django.contrib import admin
 from django.urls import path, include
 from django.http import HttpResponse
 from .views import EventViewSet, UserViewSet
+from . import views
+from rest_framework.routers import DefaultRouter
 
 router = DefaultRouter()
 router.register(r'events', EventViewSet)
@@ -25,8 +27,10 @@ router.register(r'users', UserViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include('events.urls')),
-    path('', home),
-    path('api/', include(router.urls)),
+    path('api/v1/', include(router.urls)),
+    path('', views.home, name='home'),
+    path('events/', views.event_list, name='event_list'),
+    path('events/<int:event_id>/', views.event_detail, name='event_detail'),
+    path('events/create/', views.create_event, name='create_event'),
+    path('', include('event_manager.urls')),
 ]
-

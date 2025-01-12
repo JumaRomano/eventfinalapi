@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        a {
+            text-decoration: none;
+            color: #337ab7;
+        }
+
+        a:hover {
+            color: #23527c;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Events</h1>
+    <ul>
+        {% if events %}
+        {% for event in events %}
+        <li>
+            <a href="{% url 'event_detail' event.id %}">{{ event.name }}</a> - {{ event.date }}
+        </li>
+        {% endfor %}
+        {% else %}
+        <li>No events found.</li>
+        {% endif %}
+    </ul>
+    <a href="{% url 'create_event' %}">Create New Event</a>
+</body>
+
+</html>
