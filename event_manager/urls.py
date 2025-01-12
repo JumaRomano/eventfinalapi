@@ -17,13 +17,16 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.http import HttpResponse
+from .views import EventViewSet, UserViewSet
 
-def home(request):
-    return HttpResponse("Hello, World!")
+router = DefaultRouter()
+router.register(r'events', EventViewSet)
+router.register(r'users', UserViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('events.urls')),
     path('', home),
+    path('api/', include(router.urls)),
 ]
 
